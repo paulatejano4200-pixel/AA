@@ -1,1 +1,2 @@
-pub type HumanHandle = String;
+#[derive(Debug, Clone)]
+pub struct HumanHandle(pub String);

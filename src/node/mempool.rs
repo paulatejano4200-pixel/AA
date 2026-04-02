@@ -3,7 +3,7 @@ use std::collections::{BTreeMap, HashSet};
 use crate::core::chain::{OutPoint, UtxoSet};
 use crate::core::tx::Transaction;
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct Mempool {
     by_fee: BTreeMap<u64, Vec<Transaction>>,
     spent: HashSet<OutPoint>,
@@ -23,12 +23,15 @@ impl Mempool {
         let mut in_sum = 0u64;
         let mut out_sum = 0u64;
 
-        for i in &tx.inputs {
-            let op = (i.prev_txid, i.prev_vout);
+        for (i, inp) in tx.inputs.iter().enumerate() {
+            let op = (inp.prev_txid, inp.prev_vout);
             if self.spent.contains(&op) {
                 anyhow::bail!("double spend in mempool");
             }
             let Some(u) = utxo.0.get(&op) else { anyhow::bail!("input not found") };
+            if !tx.verify_input_signature(i) {
+                anyhow::bail!("invalid signature");
+            }
             in_sum = in_sum.saturating_add(u.value);
         }
 
