@@ -1,3 +1,7 @@
+mod core;
+mod miner;
+mod node;
+
 fn main() {
-    println!("Hello, world!");
+    println!("Aurum bootstrap: stage 1");
 }
