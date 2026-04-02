@@ -1,6 +1,13 @@
 [package]
 name = "aurum"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
+anyhow = "1"
+bincode = "1"
+blake3 = "1"
+clap = { version = "4", features = ["derive"] }
+hex = "0.4"
+serde = { version = "1", features = ["derive"] }
+sha2 = "0.10"

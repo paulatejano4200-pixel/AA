@@ -1,1 +1,1 @@
-pub fn ping_storage() {}
+pub struct StorageStub;

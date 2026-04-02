@@ -1,1 +1,1 @@
-pub fn ping_p2p() {}
+pub struct P2pStub;

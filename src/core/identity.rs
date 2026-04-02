@@ -1,1 +1,1 @@
-pub fn ping_identity() {}
+pub type HumanHandle = String;

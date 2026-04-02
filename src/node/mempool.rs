@@ -1,1 +1,2 @@
-pub fn ping_mempool() {}
+#[derive(Default)]
+pub struct Mempool;

@@ -1,1 +1,1 @@
-// miner module (next step)
+pub struct MinerStub;
