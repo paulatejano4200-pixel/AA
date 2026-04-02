@@ -37,18 +37,21 @@ pub fn mine_one(
                 while !done.load(Ordering::Relaxed) {
                     blk.header.nonce = nonce;
                     let h = blk.header.hash();
+
                     if meets_target(&h, &target) {
                         *result.write() = Some(blk.clone());
                         done.store(true, Ordering::Relaxed);
                         break;
                     }
+
                     nonce = nonce.wrapping_add(threads as u64);
                 }
             });
         }
     });
 
-    result.write().take()
+    let mined = result.write().take();
+    mined
 }
 
 pub fn miner_address_from_pubkey(pubkey: &[u8]) -> [u8; 32] {
